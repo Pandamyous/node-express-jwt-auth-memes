@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: my-app
+    command: node server.js
+    environment:
+      - MONGODB_CONNSTRING=mongodb://anton:jurca@mongodb
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongoDB
+  mongoDB:
+    image: mongo
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=anton
+      - MONGO_INITDB_ROOT_PASSWORD=jurca
+      - MONGO_INITDB_DATABASE=pepeblog
+    ports:
+      - 27017:27017
+    volumes:
+      - \Users\25578\Downloads\NodeJsProjekty\data\db
+    restart: unless-stopped
